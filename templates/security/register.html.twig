@@ -1,0 +1,59 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Inscription{% endblock %}
+
+{% block body %}
+<div class="row justify-content-center mt-5">
+    <div class="col-lg-6 col-md-8 col-12">
+        <div class="card shadow-lg border-0 rounded-3">
+            <div class="card-body p-5">
+                <div class="text-center mb-4">
+                    <i class="bi bi-person-plus-fill text-primary" style="font-size: 3rem;"></i>
+                    <h2 class="fw-bold mt-2 text-dark">Inscription</h2>
+                    <p class="text-secondary">Créez votre compte pour rejoindre l'apprentissage en ligne</p>
+                </div>
+
+                {{ form_start(registrationForm, {'attr': {'class': 'needs-validation'}}) }}
+                    
+                    {{ form_errors(registrationForm) }}
+
+                    <div class="mb-3">
+                        {{ form_label(registrationForm.email, null, {'label_attr': {'class': 'form-label fw-semibold text-secondary'}}) }}
+                        {{ form_widget(registrationForm.email, {'attr': {'class': 'form-control form-control-lg' ~ (form_errors(registrationForm.email) ? ' is-invalid' : '')}}) }}
+                        <div class="invalid-feedback d-block">
+                            {{ form_errors(registrationForm.email) }}
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        {{ form_label(registrationForm.plainPassword.first, null, {'label_attr': {'class': 'form-label fw-semibold text-secondary'}}) }}
+                        {{ form_widget(registrationForm.plainPassword.first, {'attr': {'class': 'form-control form-control-lg' ~ (form_errors(registrationForm.plainPassword.first) ? ' is-invalid' : '')}}) }}
+                        <div class="invalid-feedback d-block">
+                            {{ form_errors(registrationForm.plainPassword.first) }}
+                        </div>
+                    </div>
+
+                    <div class="mb-4">
+                        {{ form_label(registrationForm.plainPassword.second, null, {'label_attr': {'class': 'form-label fw-semibold text-secondary'}}) }}
+                        {{ form_widget(registrationForm.plainPassword.second, {'attr': {'class': 'form-control form-control-lg' ~ (form_errors(registrationForm.plainPassword.second) ? ' is-invalid' : '')}}) }}
+                        <div class="invalid-feedback d-block">
+                            {{ form_errors(registrationForm.plainPassword.second) }}
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary btn-lg w-100 mb-3">
+                        <i class="bi bi-person-check"></i> Créer mon compte
+                    </button>
+
+                {{ form_end(registrationForm) }}
+
+                <div class="text-center mt-4 border-top pt-3">
+                    <p class="mb-0 text-secondary">
+                        Déjà inscrit ? <a href="{{ path('app_login') }}" class="text-decoration-none fw-bold">Se connecter</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

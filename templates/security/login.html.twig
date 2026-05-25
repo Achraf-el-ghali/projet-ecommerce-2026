@@ -1,0 +1,50 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Connexion{% endblock %}
+
+{% block body %}
+<div class="row justify-content-center mt-5">
+    <div class="col-lg-5 col-md-8 col-12">
+        <div class="card shadow-lg border-0 rounded-3">
+            <div class="card-body p-5">
+                <div class="text-center mb-4">
+                    <i class="bi bi-shield-lock-fill text-primary" style="font-size: 3rem;"></i>
+                    <h2 class="fw-bold mt-2 text-dark">Connexion</h2>
+                    <p class="text-secondary">Accédez à vos cours et suivez votre progression</p>
+                </div>
+
+                <form method="post">
+                    {% if error %}
+                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                            {{ error.messageKey|trans(error.messageData, 'security') }}
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                    {% endif %}
+
+                    <div class="form-floating mb-3">
+                        <input type="email" value="{{ last_username }}" name="_username" id="inputEmail" class="form-control" autocomplete="email" required autofocus placeholder="name@example.com">
+                        <label for="inputEmail">Adresse Email</label>
+                    </div>
+
+                    <div class="form-floating mb-4">
+                        <input type="password" name="_password" id="inputPassword" class="form-control" autocomplete="current-password" required placeholder="Mot de passe">
+                        <label for="inputPassword">Mot de passe</label>
+                    </div>
+
+                    <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+
+                    <button class="btn btn-primary btn-lg w-100 mb-3" type="submit">
+                        <i class="bi bi-box-arrow-in-right"></i> Se connecter
+                    </button>
+                </form>
+
+                <div class="text-center mt-4 border-top pt-3">
+                    <p class="mb-0 text-secondary">
+                        Nouveau sur EHEI ? <a href="{{ path('app_register') }}" class="text-decoration-none fw-bold">Créer un compte</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

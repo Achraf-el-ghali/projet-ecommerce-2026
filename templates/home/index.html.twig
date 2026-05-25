@@ -1,0 +1,63 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Accueil — Plateforme d'Apprentissage EHEI{% endblock %}
+
+{% block body %}
+    <!-- Hero Section -->
+    <div class="p-5 mb-5 bg-light rounded-3 border">
+        <div class="container-fluid py-5">
+            <h1 class="display-4 fw-bold text-primary">Développez vos compétences en ligne</h1>
+            <p class="col-md-8 fs-4">
+                Découvrez des cours interactifs animés par des experts. Progressez à votre rythme grâce à notre sélection de formations de qualité.
+            </p>
+            <a href="{{ path('app_catalog_all') }}" class="btn btn-primary btn-lg mt-3">
+                <i class="bi bi-book"></i> Découvrir le Catalogue
+            </a>
+        </div>
+    </div>
+
+    <!-- Featured Courses Section -->
+    <div class="row mb-3">
+        <div class="col">
+            <h2 class="h3 border-bottom pb-2 mb-4"><i class="bi bi-star"></i> Formations à la une</h2>
+        </div>
+    </div>
+
+    <div class="row row-cols-1 row-cols-md-3 g-4">
+        {% for course in courses %}
+            <div class="col">
+                <div class="card h-100 shadow-sm">
+                    <div class="card-body">
+                        <div class="badge bg-secondary mb-2">{{ course.category.name }}</div>
+                        <h5 class="card-title text-dark">{{ course.name }}</h5>
+                        <h6 class="card-subtitle mb-2 text-muted">
+                            Par {{ course.author }}
+                        </h6>
+                        <p class="card-text text-secondary">{{ course.synopsis }}</p>
+                    </div>
+                    <div class="card-footer d-flex justify-content-between align-items-center bg-white border-top-0 pb-3">
+                        <span class="fs-5 fw-bold text-success">
+                            {{ course.price | number_format(2, ',', ' ') }} DH
+                        </span>
+                        <a href="{{ path('app_catalog_view', { slug: course.slug }) }}" class="btn btn-outline-primary btn-sm">
+                            Voir le cours
+                        </a>
+                    </div>
+                </div>
+            </div>
+        {% else %}
+            <div class="col-12 text-center py-5">
+                <p class="text-muted">Aucune formation disponible pour le moment.</p>
+            </div>
+        {% endfor %}
+    </div>
+
+    <!-- Call to action -->
+    <div class="row justify-content-center mt-5 mb-4">
+        <div class="col-auto">
+            <a href="{{ path('app_catalog_all') }}" class="btn btn-primary btn-lg px-4">
+                Voir toutes les formations <i class="bi bi-arrow-right"></i>
+            </a>
+        </div>
+    </div>
+{% endblock %}

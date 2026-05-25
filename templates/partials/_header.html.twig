@@ -1,0 +1,68 @@
+<nav class="navbar navbar-expand-lg bg-primary navbar-dark shadow-sm">
+    <div class="container">
+        <a class="navbar-brand d-flex align-items-center" href="{{ path('app_home') }}">
+            <i class="bi bi-mortarboard-fill me-2 fs-3"></i>
+            <span class="fw-bold">EHEI E-Learning</span>
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarColor01">
+            <ul class="navbar-nav me-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ path('app_home') }}">
+                        <i class="bi bi-house-door"></i> Accueil
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ path('app_catalog_all') }}">
+                        <i class="bi bi-book"></i> Catalogue
+                    </a>
+                </li>
+            </ul>
+
+            <ul class="navbar-nav ms-auto align-items-center">
+                <!-- Cart Link -->
+                <li class="nav-item me-3">
+                    <a class="nav-link btn btn-outline-light btn-sm text-white px-3" href="{{ path('app_cart_index') }}">
+                        <i class="bi bi-cart3"></i> Panier
+                        {% set cartCount = (app.session and app.session.get('_cart') ? app.session.get('_cart')|length : 0) %}
+                        {% if cartCount > 0 %}
+                            <span class="badge bg-danger rounded-pill ms-1">{{ cartCount }}</span>
+                        {% endif %}
+                    </a>
+                </li>
+
+                <!-- User Dropdown / Authenticated Actions -->
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle d-flex align-items-center" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
+                        <i class="bi bi-person-circle me-1"></i>
+                        {% if app.user %}
+                            {{ app.user.userIdentifier }}
+                        {% else %}
+                            Espace Membre
+                        {% endif %}
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-end shadow border-0">
+                        {% if app.user %}
+                            <a class="dropdown-item" href="{{ path('app_profile') }}">
+                                <i class="bi bi-person"></i> Mon Profil
+                            </a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item text-danger" href="{{ path('app_logout') }}">
+                                <i class="bi bi-box-arrow-right"></i> Se déconnecter
+                            </a>
+                        {% else %}
+                            <a class="dropdown-item" href="{{ path('app_login') }}">
+                                <i class="bi bi-box-arrow-in-right"></i> Se connecter
+                            </a>
+                            <a class="dropdown-item" href="{{ path('app_register') }}">
+                                <i class="bi bi-person-plus"></i> S'inscrire
+                            </a>
+                        {% endif %}
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
